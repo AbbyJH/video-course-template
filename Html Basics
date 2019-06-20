@@ -1,0 +1,1186 @@
+<!DOCTYPE=html>
+
+<head>
+
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="crossorigin="anonymous"></script>
+
+
+<script>
+var vid, playbtn, seekslider, curtimetext, durtimetext, mutebtn, volumeslider, fullscreenbtn;
+
+function initializePlayer() {
+
+//set object references
+vid = document.getElementById("htmlles1");
+playbtn = document.getElementById("playpausebtn");
+seekslider = document.getElementById("seekslider");
+curtimetext = document.getElementById("curtimetext");
+durtimetext = document.getElementById("durtimetext");
+mutebtn = document.getElementById("mutebtn");
+volumeslider = document.getElementById("volumeslider");
+fullscreenbtn = document.getElementById("fullscreenbtn");
+
+
+//add event listeners
+
+playbtn.addEventListener("click",PlayPause,false);
+seekslider.addEventListener("change",vidSeek,false);
+vid.addEventListener("timeupdate",seektimeupdate,false);
+mutebtn.addEventListener("click",vidmute,false);
+volumeslider.addEventListener("change",setvolume,false);
+fullscreenbtn.addEventListener("click",toggleFullScreen,false);
+
+}
+
+window.onload = initializePlayer;
+
+function PlayPause () {
+
+	if(vid.paused){
+		vid.play();
+		playbtn.innerHTML = "Pause";
+	
+	}else {
+	
+	vid.pause();
+	playbtn.innerHTML = "Play";
+	
+	
+	}
+
+} 
+
+function vidSeek () {
+
+var seekto = vid.duration * (seekslider.value / 100);
+vid.currentTime = seekto;
+
+}
+
+function seektimeupdate(){
+	var nt = vid.currentTime * (100 / vid.duration);
+	seekslider.value = nt;
+	var curmins = Math.floor(vid.currentTime / 60);
+	var cursecs = Math.floor(vid.currentTime - curmins * 60);
+	var durmins = Math.floor(vid.duration / 60);
+	var dursecs = Math.floor(vid.duration - durmins * 60);
+	if(cursecs < 10){ cursecs = "0"+cursecs; }
+	if(dursecs < 10){ dursecs = "0"+dursecs; }
+	if(curmins < 10){ curmins = "0"+curmins; }
+	if(durmins < 10){ durmins = "0"+durmins; }
+	curtimetext.innerHTML = curmins+":"+cursecs;
+	durtimetext.innerHTML = durmins+":"+dursecs;
+}
+
+function vidmute (){
+
+
+if(vid.muted){
+		vid.muted = false;
+		mutebtn.innerHTML = "Mute";
+	
+	}else {
+	
+	vid.muted = true;
+	mutebtn.innerHTML = "Unmute";
+	
+	}	
+}
+
+function setvolume (){
+
+vid.volume = volumeslider.value / 100;
+
+}
+
+function toggleFullScreen () {
+
+if (vid.requestFullScreen){
+
+vid.requestFullScreen ();
+
+} else if (vid.webkitRequestFullScreen){
+
+vid.webkitRequestFullScreen();
+
+} else if (vid.mozRequestFullScreen){
+
+vid.mozRequestFullScreen();
+
+}
+
+}
+
+
+function show(target) {
+    document.getElementById(target).style.display = 'block';
+}
+
+function hide(target) {
+    document.getElementById(target).style.display = 'none';
+}
+
+
+</script>
+
+
+
+<style>
+
+body {
+
+margin: 0;
+padding: 0;
+background: url('homeoffice.jpg');
+background-size: cover;
+background-position: top;
+
+}
+
+background {
+
+color: black;
+
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+
+header {
+
+width: 100%
+height: 25%;
+background: dodgerBlue;
+
+
+
+}
+
+
+.nav1 {
+
+position: fixed;
+top: 0;
+right: 0;
+width: 75%;
+height: 80px;
+background: lightblue;
+padding: 10px 40px;
+box-sizing: border-box;
+transition: .5s;
+box-shadow: 2px 2px 2px #262626;
+opacity: 0.8;
+
+}
+
+nav .logo {
+
+float: left;
+
+}
+
+nav .logo img {
+
+height: 80px;
+transition: .5s;
+
+}
+
+.nav1 ul {
+
+float: right;
+margin: 0;
+padding: 0;
+display: flex;
+z-index: 100000;
+opacity: 1;
+
+}
+
+.nav1 ul li {
+
+list-style: none;
+font-family: 'Open Sans';
+	color: white;
+	padding: 10px;
+	padding-bottom: 12px;
+	box-sizing: border-box; 
+	font-size: 20px;
+	color: #D8D8D8;
+position: relative;
+
+}
+
+
+.nav1 ul li a {
+
+
+line-height: 50px;
+color: #262626;
+text-decoration: none;
+text-transform: uppercase;
+transition: .5s;
+z-index: 100000;
+opacity: 1;
+
+}
+
+.nav1 ul li a:hover {
+
+color: white;
+padding-top: 10px;
+padding-bottom: 10px;
+transition: .0005s;
+z-index: 100000;
+opacity: 1;
+
+
+}
+
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+.fa-times{
+	right: 10px;
+	top: 100px;
+	opacity: 0.7;
+	cursor: pointer;
+	position: absolute;
+	color: white;
+	transition: all 0.2s ease-in-out;
+	padding-top: 40px;
+}
+
+.fa-times:hover{
+	opacity: 1;
+}
+
+
+.fa-check{
+	right: 10px;
+	top: 100px;
+	opacity: 0.75;
+	cursor: pointer;
+	position: absolute;
+	color: limegreen;
+	font-size: 35px;
+	transition: all 0.2s ease-in-out;
+	outline: 2px white;
+}
+
+.fa-check:hover{
+	opacity: 1;
+}
+
+
+
+
+.sidebar_menu{
+	position: fixed;
+	width: 25%;
+	margin-left: 0px;
+	overflow: hidden;
+	height: 100vh;
+	max-height: 100vh;
+	background-color: rgba(25,25,25,0.6);
+	opacity: 0.9;
+	transition: all 0.3s ease-in-out;
+}
+
+.hide_menu{
+	margin-left: -250px;
+	transition: all 0.3s ease-in-out;
+}
+
+.toggle_menu{
+	position: fixed;
+	padding: 15px 20px 15px 15px;
+	margin-top: 70px;
+	color: white;
+	cursor: pointer;
+	background-color: #648B79;
+	opacity: 0;
+	z-index: 10000;
+	font-size: 2em; 
+	transition: all 0.2s ease-in-out;
+}
+
+.opacity_one{
+	opacity: 1;
+	transition: all 0.2s ease-in-out;
+}
+
+.toggle_menu:hover{
+	background-color: #FE4365;
+	transition: all 0.2s ease-in-out;
+}
+
+.welcome {
+
+position: fixed;
+top: 20px;
+left: 5%;
+
+
+
+}
+
+.boxed_item{
+	font-family: 'Open Sans';
+	font-weight: 200;
+	padding: 10px 20px;
+	display: inline-block;
+	border: solid 2px white;
+	box-sizing: border-box;
+	font-size: 22px;
+	color: white;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	z-index: 1;
+	box-shadow: 0px 0px 10px 0px blue;
+}
+
+.logo_bold{
+	font-weight: 800;
+}
+
+.logo_title{
+	color: white;
+	font-family: 'Open Sans';
+	font-weight: 200;
+	font-size: 12px;
+	text-align: center;
+	padding: 5px 0;
+}
+
+.menu_close{
+	color: #D8D8D8;
+	position: absolute;
+	right: 8px;
+	opacity: 0.7;
+	top: 6px;
+	font-size: 1.1em;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+}
+
+.menu_close:hover{
+	color: #FE4365;
+	opacity: 1;
+	transition: all 0.2s ease-in-out;
+}
+
+//sidebar nav
+
+.navigation_section{
+	margin: 20px 0;
+	display: block;
+	width: 212px;
+	margin-left: 25px;
+	overflow-x: hidden;
+	box-shadow: 3px 4px 5px 6px blue;
+	box-shadow: inset 0px 0px 50px 0px navy;
+}
+
+.navigation_item{
+	display: block;
+	font-weight: bold;
+	background: black;
+	font-family: 'Open Sans';
+	color: white;
+	padding: 25px;
+	padding-bottom: 12px;
+	box-sizing: border-box; 
+	font-size: 40px;
+	color: #D8D8D8;
+	border-bottom: solid 1px #D8D8D8;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+	opacity: 0.7;
+	box-shadow: inset 0px 0px 50px 0px navy;
+	text-shadow: 0px 0px 50px 0px navy;
+	line-height: 15px;
+	
+	
+}
+
+
+.navigation_item ul{
+	
+	display: block;
+	background: transparent;
+	padding: 10px;
+	font-size: 17.5px;
+	
+}
+
+.navigation_item ul li{
+	
+	display: block;
+	background: transparent;
+	padding: 5px 10px;
+	
+}
+
+
+.navigation_item a{
+	font-weight: bold;
+	font-family: 'Open Sans';
+	color: white;
+	padding: 12px 0px;
+	margin-bottom: 25px;
+	margin-top: 25px;
+	box-sizing: border-box; 
+	font-size: 20px;
+	color: #D8D8D8;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+	text-decoration: underline;
+	text-shadow: .5px .5px .5px black, .8px .8px .8px black, 5px 5px 5px black;
+
+}
+
+.navigation_item a:hover{
+	color: dodgerBlue;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+}
+
+#lessdesc {
+
+line-height: 20px;
+padding: auto;
+font-size: 20px;
+margin-top: 10px;
+text-shadow: .5px .5px .5px black;
+
+}
+
+.lessons {
+
+margin-left: 10px;
+height: 570px;
+width: 85%;
+position: absolute;
+top: 15%;
+left: 5%;
+overflow-y: scroll;
+z-index: 1;
+border-left: 2px solid silver;
+border-top: 2px solid silver;
+border-bottom: 2px solid silver;
+box-shadow: 0px 0px 10px 0px blue;
+
+
+
+
+
+}
+
+  ::-webkit-scrollbar {
+    width: 15px;
+	opacity: 0;
+  }
+  
+  
+  ::-webkit-scrollbar:hover {
+    width: 25px;
+	opacity: 0;
+  }
+  
+  
+  
+  ::-webkit-scrollbar-track {
+    background: black;
+	border-radius: 8px;
+	border: 2px solid silver;
+	opacity: 0.2;
+	
+    }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#262626, #262626, navy);
+	border-radius: 8px;
+	width: 25px;
+	border: 2px solid silver;
+	box-shadow: inset 0px 2px 50px 2px navy;
+    
+	}
+	
+	
+	
+	::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#262626, #262626, navy);
+	border-radius: 8px;
+	width: 50px;
+	border: 2px solid silver;
+	box-shadow: inset 0px 2px 5px 2px dodgerBlue;
+   cursor: pointer;
+	
+	}
+	
+	
+	
+	
+	
+	/*IE 8 plus*/
+body{
+scrollbar-base-color: #FE505A;
+scrollbar-base-color: #FE505A;
+scrollbar-3dlight-color: #FE505A;
+scrollbar-highlight-color: #292121;
+scrollbar-track-color: #292121;
+scrollbar-arrow-color: black;
+scrollbar-shadow-color: #FE505A;
+scrollbar-dark-shadow-color: #FE505A;
+}
+
+
+.boxed_item_smaller{
+	font-size: 12px;
+	color: #D8D8D8;
+	width: 200px;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+	border-width: 1px;
+	margin: 0 0 20px 0;
+}
+
+.boxed_item_smaller:hover{
+	background-color: white;
+	color: #111;
+	transition: all 0.3s ease-in-out;
+}
+
+
+.overlay {
+
+width: 100%;
+height: 100%;
+background: #262626;
+opacity: 0.4;
+position: absolute;
+overflow: hidden;
+top: 0;
+left: 0;
+z-index: -1;
+
+}
+
+
+
+#videos {
+
+display:none;
+position: absolute;
+	top: 80px;
+	width: 74.6%;
+	left: 1364.5px;
+	margin-right: none;
+	overflow: hidden;
+	height: 611px;
+	max-height: 90vh;
+	background-color: rgba(17,17,17,0.2);
+	opacity: 1;
+	transition: all 0.3s ease-in-out;
+	overflow-y: none;
+	border: 2px solid silver;
+	transition: all 0.3s ease-in-out;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -webkit-animation: slide 0.5s backwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s backwards;
+    animation-delay: 2s;
+	box-shadow: inset 0px 0px 10px 0px #262626;
+	box-shadow: inset 0px 0px 50px 0px lightblue;
+}
+
+.slide-in {
+    animation: slide-in 0.5s backwards;
+    -webkit-animation: slide-in 0.5s backwards;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+    
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+    
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-100%); }
+}
+
+
+#videos a {
+
+position: absolute;
+top: 106%;
+left: 50%;
+color: #fff;
+font-size: 2em;
+width: 800px;
+text-align: center;
+text-shadow: 2px 2px 2px #252525;
+letter-spacing: 0.5px;
+text-align: center;
+transform: translate(-50%,-50%);
+transition: all 0.3s ease-in-out;
+background: #262626;
+border-radius: 15px;
+padding: 10px;
+border: solid 2px black;
+box-shadow: inset 0px 0px 50px 0px navy;
+
+}
+
+#videos a:hover {
+
+color: dodgerBlue;
+box-shadow: inset 0px 0px 50px 0px navy;
+
+}
+
+.videobox1 {
+
+top: 20px;
+position: absolute;
+left: 8%;
+margin: 0 0;
+z-index: 1;
+opacity: 1;
+transition: all 0.3s ease-in-out;
+
+}
+
+div#video_control_bar {
+
+position: absolute;
+background-color: rgba(17,17,17,1);
+opacity: 0.9;
+padding: 10px;
+width: 826px;
+bottom: 0;
+left: 0;
+border: 2px solid silver;
+transition: all 0.3s ease-in-out;
+box-shadow: inset 0px 0px 50px 0px #262626;
+
+}
+
+
+
+#seekslider {
+
+width: 50%;
+color: dodgerBlue;
+margin-left: 10px;
+transition: all 0.3s ease-in-out;
+
+}
+
+#curtimetext {
+
+font-size: 15px;
+color: dodgerBlue;
+font-weight: bold;
+margin-left: 10px;
+text-shadow: .5px .5px .5px silver;
+transition: all 0.3s ease-in-out;
+
+}
+
+#durtimetext {
+
+font-size: 15px;
+color: dodgerBlue;
+font-weight: bold;
+margin-right: 10px;
+text-shadow: .5px .5px .5px silver;
+transition: all 0.3s ease-in-out;
+
+}
+
+#mutebtn {
+
+padding: 10px;
+background: linear-gradient( navy, dodgerBlue);
+cursor: pointer;
+color: white;
+font-weight: bold;
+border-radius: 10px;
+text-shadow: .5px .5px .5px black;
+transition: all 0.3s ease-in-out;
+outline: none;
+box-shadow: inset 0px 0px 10px 0px #262626;
+
+}
+
+#mutebtn:hover {
+
+background: linear-gradient( dodgerBlue, navy);
+cursor: pointer;
+color: white;
+font-weight: bold;
+border: solid 2px dodgerBlue;
+box-shadow: inset 0px 0px 10px 0px #262626;
+
+
+}
+
+input#volumeslider {
+
+width: 60px;
+margin-left: 10px;
+transition: all 0.3s ease-in-out;
+
+}
+
+input[type='range'] {
+
+-webkit-appearance: none !important;
+background: black;
+height: 8px;
+border: solid 0.5px silver;
+border-radius: 8px;
+transition: all 0.3s ease-in-out;
+outline: none;
+box-shadow: inset 0px 0px 50px 0px #333;
+
+}
+
+input[type='range']::-webkit-slider-thumb {
+
+-webkit-appearance: none !important;
+background: linear-gradient( navy, dodgerBlue);
+height: 25.8px;
+width: 14px;
+border-radius: 5px;
+border: solid 0.5px silver;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+box-shadow: inset 0px 0px 10px 0px #262626;
+
+}
+
+
+
+#fullscreenbtn {
+
+padding: 10px;
+background: linear-gradient( navy, dodgerBlue);
+cursor: pointer;
+color: white;
+font-weight: bold;
+margin-right: 1px;
+margin-left: 5px;
+border-radius: 10px;
+text-shadow: .5px .5px .5px black;
+transition: all 0.3s ease-in-out;
+box-shadow: inset 0px 0px 10px 0px #262626;
+
+}
+
+#fullscreenbtn:hover {
+
+background: linear-gradient( dodgerBlue, navy);
+cursor: pointer;
+font-weight: bold;
+border: solid 2px dodgerBlue;
+box-shadow: inset 0px 0px 10px 0px #262626;
+
+}
+
+#playpausebtn {
+
+padding: 10px;
+background: linear-gradient( navy, dodgerBlue);
+cursor: pointer;
+color: white;
+font-weight: bold;
+border: solid 2px silver;
+font-size: 14px;
+border-radius: 10px;
+transition: all 0.3s ease-in-out;
+text-shadow: .5px .5px .5px black;
+box-shadow: inset 0px 0px 10px 0px #262626;
+outline: none;
+ 
+}
+
+#playpausebtn:hover {
+
+background: linear-gradient( dodgerBlue, navy);
+cursor: pointer;
+color: white;
+font-weight: bold;
+border: solid 2px dodgerBlue;
+box-shadow: inset 0px 0px 10px 0px #262626;
+
+}
+
+.fa-times {
+
+right: 20px;
+top: 20px;
+opacity: 0.7;
+cursor: pointer;
+position: absolute;
+color: red;
+font-size: 35px;
+transition: all 0.3s ease-in-out;
+z-index: 750;
+
+}
+
+.fa times:hover {
+
+opacity: 1;
+transition: all 0.3s ease-in-out;
+
+}
+
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+.overlay2 {
+    background: black;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    display: none;
+}
+.highlight {
+
+padding: 10px;
+    width: 10%;
+    background: white;
+    z-index: 1;
+	float: left;
+	text-align: center;
+	box-shadow: 0px 0px 10px 0px blue;
+	cursor: pointer;
+	line-height: 24px;
+	
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+    
+	
+	#mybar {
+	
+	position: absolute;
+	top: 100px;
+	width: 0%;
+	height: 20px;
+	z-index: 7;
+	position: absolute;
+	top: 2px;
+	left: 0;
+	background: green;
+	margin: 10px;
+	padding-right: 10px;
+	display: hidden;
+	
+	}
+	
+	.w3-green {
+	
+	height: 30px;
+	width: 2px;
+	z-index: 4;
+	color: limegreen;
+	
+	}
+
+.w3-container
+
+{
+
+z-index: 5;
+height: 40px;
+width: 100%;
+background: white;
+opacity: 0.6;
+
+
+}
+
+
+</style>
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="js/menu_toggle.js"></script>
+	<title>Lesson Template</title>
+</head>
+<body>
+
+<header>
+
+<nav class="nav1">
+
+<div class="highlight">Lights
+    <br/><span class="on">Off</span> | <span class="off">On
+	</span> 
+</div>
+
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Log Out</a></li>
+<li><a href="#">Courses</a></li>
+<li><a href="#"></a></li>
+<li><a href="#"></a></li>
+<li><a href="#"></a></li>
+
+</ul>
+
+</nav>
+
+
+</header>
+
+
+
+
+	<i class="fa fa-bars toggle_menu"></i>
+
+	<div class="sidebar_menu">
+		
+		
+		<div class="welcome">
+		<center>
+			<a href="#"><h1 class="boxed_item">HTML Basics <span class="logo_bold"></span></h1>
+			</a><h2 class="logo_title"></h2>
+		</center>
+		</div>
+
+
+		<div class="lessons">
+		<ul class="navigation_section">
+			<li class="navigation_item" class="lessonintro" onclick="show('videos')">
+				<a href="#" >Introduction<br>To Course</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1" onclick="show('videos')">
+				<p id="lessdesc">Overview</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson1" onclick="show('videos')">
+				<a href="#">Lesson 1 <br> Getting Set Up</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1" onclick="show('videos')">
+				<p id="lessdesc">Creating a folder for your project</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson2" onclick="show('videos')">
+				<a href="#">Lesson 2 <br> Tags & Elements</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1" onclick="show('videos')">
+				<p id="lessdesc">Putting an element inside a tag <br><br> Open and close tags <br><br> IDs and Classes <br><br> Attributes</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson3" onclick="show('videos')">
+				<a href="#">Lesson 3 <br> Basic Page Structure</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1" >
+				<p id="lessdesc">Setting up a web page</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson4" onclick="show('videos')">
+				<a href="#">Lesson 4 <br> Heading & Paragraphs</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1" >
+				<p id="lessdesc">Heading types and paragraphs <br><br> How to add links to your paragraphs</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson5" onclick="show('videos')">
+				<a href="#">Lesson 5 <br> Dividers (Divs)</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1">
+				<p id="lessdesc">How to divide the elements</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson6" onclick="show('videos')">
+				<a href="#">Lesson 6 <br> Containers</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1">
+				<p id="lessdesc">How to build a container</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson7" onclick="show('videos')">
+				<a href="#">Lesson 7 <br> Navigation Bar</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1">
+				<p id="lessdesc">How to build a basic navigation bar with links</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson8" onclick="show('videos')">
+				<a href="#">Lesson 8 <br> Title & Logo</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1">
+				<p id="lessdesc">How to add a logo and a title to your navigation bar</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson9" onclick="show('videos')">
+				<a href="#">Lesson 9 <br> Images</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1">
+				<p id="lessdesc">How to add an image to your page</p>
+			</li>
+			</ul>
+			</li>
+			<li class="navigation_item" id="lesson10" onclick="show('videos')">
+				<a href="#">Lesson 10 <br> Getting Ready To Style</a>
+				<br>
+				<ul>
+				<li class="navigation_item2" class="lesson1" id="toggle">
+				<p id="lessdesc">Introduction to CSS</p>
+			</li>
+			</ul>
+			</li>
+		</ul>
+	</div>
+	
+	</div><!-- End of sidebar -->
+
+	<div id="videos" class="slide-in">
+	
+	<i class="fa fa-times" onclick="hide('videos')" title="Close"></i>
+	<i class="fas fa-check" title="Done" onclick="move()" onclick="show('w3-container')" onclick="show('mybar')"  ></i>
+	
+		<div class="videobox1">
+		
+			<video id="htmlles1" width= "850" height= "520" >
+		
+			<source src="BeginHTML1.mp4">
+		
+		</video>
+		
+		<div id="video_control_bar">
+		
+			<button id="playpausebtn">Play</button>
+			<input id="seekslider" type="range" min="0" max="100" value="0" step="1">
+			<span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
+			<button id="mutebtn"> Mute </button>
+			<input id="volumeslider" type="range" min="0" max="100" value="100" step="1" title="adjust audio">
+			<button id="fullscreenbtn" title="go full screen"> [ Full ] </button>
+		</div>
+	
+		<a href="">Click Here To Download Notepad++</a>
+	</div> 
+		
+	<div class="overlay"></div>
+	
+	<div class="overlay2"></div>
+
+
+
+<div class="container2">
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+      70%
+    </div>
+  </div>
+</div>
+
+<script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width = 1;
+  var id = setInterval(frame, 10);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+    } else {
+      width++; 
+      elem.style.width = width + '%'; 
+    }
+  }
+}
+</script>
+
+
+	
+	<script src="js/close_menu.js"></script>
+	
+	<script>
+	
+	$(".on").click(function () {
+    $(".overlay2").fadeIn();
+});
+
+$(".off").click(function () {
+    $(".overlay2").fadeOut();
+});
+	
+</script>
+	
+	
+</body>
+</html>
+
+
